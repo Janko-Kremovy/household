@@ -21,8 +21,8 @@ def detail(request, dwelling_id):
 def update(request, dwelling_id):
 
     dwelling = Dwelling.objects.get(pk=dwelling_id)
-    logger.info(str(dwelling_id))
 
+    #Get POST data and update the entire dwelling.
     try:
         dwelling.type = request.POST['type'+str(dwelling.id)]
         dwelling.address = request.POST['address'+str(dwelling.id)]
