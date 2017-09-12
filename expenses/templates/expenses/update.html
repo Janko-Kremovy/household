@@ -1,0 +1,40 @@
+<h1>{{ dwelling }}</h1>
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url 'update' dwelling.id %}" method="post">
+{% csrf_token %}
+    <label>Type:</label>
+    <input type="text" name="type{{ dwelling.id }}" value="{{ dwelling.type }}" /><br/>
+    <label>Address:</label>
+    <input type="text" name="address{{ dwelling.id }}" value="{{ dwelling.address }}" /><br/>
+
+{% for room in dwelling.room_set.all %}
+    <label>Name:</label>
+    <input type="text" name="room_name{{ room.id }}" value="{{ room.name }}" /><br/>
+
+    {% for appliance in room.appliance_set.all %}
+        <label>Type:</label>
+        <input type="text" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" /><br/>
+        <label>Make:</label>
+        <input type="text" name="appliance_make{{ appliance.id }}" value="{{ appliance.make }}" /><br/>
+        <label>Model:</label>
+        <input type="text" name="appliance_model{{ appliance.id }}" value="{{ appliance.model }}" /><br/>
+        <label>Year:</label>
+        <input type="text" name="appliance_year{{ appliance.id }}" value="{{ appliance.year }}" /><br/>
+
+        {% for electricity_usage in appliance.electricityusage_set.all %}
+            <label>Watts:</label>
+            <input type="text" name="electricity_usage_watts{{ electricity_usage.id }}" value="{{ electricity_usage.watts }}" /><br/>
+            <label>Minutes per usage:</label>
+            <input type="text" name="electricity_usage_time_minutes{{ electricity_usage.id }}" value="{{ electricity_usage.time_minutes }}" /><br/>
+            <label>Usages per week:</label>
+            <input type="text" name="electricity_usage_occurrences_per_week{{ electricity_usage.id }}" value="{{ electricity_usage.occurrences_per_week }}" /><br/>
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+
+<input type="submit" value="update" />
+</form>

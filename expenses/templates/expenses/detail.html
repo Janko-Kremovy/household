@@ -1,0 +1,141 @@
+<style>
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+label.dwelling, input.dwelling {
+    /* in order to define widths */
+    display: inline-block;
+}
+
+label.dwelling {
+    width: 5%;
+    /* positions the label text beside the input */
+    text-align: right;
+}
+
+label.dwelling + input.dwelling {
+    width: 30%;
+    /* large margin-right to force the next element to the new-line
+       and margin-left to create a gutter between the label and input */
+    margin: 0 30% 0 4%;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    outline: none;
+    font-family: Verdana, sans-serif;
+}
+
+input[type=text]:focus {
+    background-color: lightblue;
+}
+
+input[type=text].appliance {
+    width: fit-content;
+}
+
+input[type=text].electricity_usage {
+    width: fit-content;
+}
+
+fieldset{
+    margin: 0px 0px 10px 0px;
+    border: 3px solid BurlyWood;
+    padding: 20px;
+    background: BurlyWood;
+    box-shadow: inset 0px 0px 15px #FFE5E5;
+    -moz-box-shadow: inset 0px 0px 15px #FFE5E5;
+    -webkit-box-shadow: inset 0px 0px 15px #FFE5E5;
+    font-family: Verdana, sans-serif;
+}
+
+fieldset.room{
+    background: NavajoWhite;
+    border: 3px solid NavajoWhite;
+}
+
+fieldset.appliance{
+    background: Khaki;
+    border: 3px solid Khaki;
+}
+
+fieldset.electricity_usage {
+    background: DarkSeaGreen;
+    border: 3px solid DarkSeaGreen;
+}
+
+fieldset legend{
+    color: black;
+    border: 3px solid BurlyWood;
+    background: white;
+    padding: 0px 8px 3px 8px;
+    box-shadow: -0px -1px 2px #F1F1F1;
+    -moz-box-shadow:-0px -1px 2px #F1F1F1;
+    -webkit-box-shadow:-0px -1px 2px #F1F1F1;
+    font-weight: normal;
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+}
+
+fieldset legend.room {
+    border: 3px solid NavajoWhite;
+}
+
+fieldset legend.appliance {
+    border: 3px solid Khaki;
+}
+
+fieldset legend.electricity_usage {
+    border: 3px solid DarkSeaGreen;
+}
+
+</style>
+
+<h1>{{ dwelling }}</h1>
+
+<form action="{% url 'update' dwelling.id %}" method="post">
+{% csrf_token %}
+
+<fieldset><legend>Dwelling</legend>
+<label class="dwelling">Type:</label>
+<input class="dwelling" type="text" name="type{{ dwelling.id }}" value="{{ dwelling.type }}" /><br/>
+<label class="dwelling">Address:</label>
+<input class="dwelling" type="text" name="address{{ dwelling.id }}" value="{{ dwelling.address }}" /><br/>
+
+{% for room in dwelling.room_set.all %}
+    <fieldset class="room"><legend class="room">Room</legend>
+    <label class="dwelling">Name:</label>
+    <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" /><br/>
+
+    {% for appliance in room.appliance_set.all %}
+        <fieldset class="appliance"><legend class="appliance">Appliance</legend>
+        <label class="dwelling">Type:</label><input type="text" class="dwelling" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" /></br>
+        <label class="dwelling">Make:</label><input type="text" class="dwelling" name="appliance_make{{ appliance.id }}" value="{{ appliance.make }}" /></br>
+        <label class="dwelling">Model:</label><input type="text" class="dwelling" name="appliance_model{{ appliance.id }}" value="{{ appliance.model }}" /></br>
+        <label class="dwelling">Year:</label><input type="text" class="dwelling" name="appliance_year{{ appliance.id }}" value="{{ appliance.year }}" /></br>
+        </br>
+
+        {% for electricity_usage in appliance.electricityusage_set.all %}
+            <fieldset class="electricity_usage"><legend class="electricity_usage">Electricity Usage</legend>
+            <input type="text"  class="electricity_usage" name="electricity_usage_watts{{ electricity_usage.id }}" value="{{ electricity_usage.watts }}" />
+            <label>Watts</label>
+            <input type="text" class="electricity_usage" name="electricity_usage_time_minutes{{ electricity_usage.id }}" value="{{ electricity_usage.time_minutes }}" />
+            <label>minutes per use, </label>
+            <input type="text" class="electricity_usage" name="electricity_usage_occurrences_per_week{{ electricity_usage.id }}" value="{{ electricity_usage.occurrences_per_week }}" />
+            <label>times per week</label></br>
+            </fieldset>
+        {% endfor %}
+    </fieldset>
+    {% endfor %}
+</fieldset>
+{% endfor %}
+
+<input type="submit" value="Confirm" />
+</form>

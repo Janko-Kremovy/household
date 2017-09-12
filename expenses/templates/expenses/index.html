@@ -1,0 +1,28 @@
+{% if dwelling_list %}
+    {% for dwelling in dwelling_list %}
+        {{ dwelling }}
+        {% for room in dwelling.room_set.all %}
+            <p>{{ room }}</p>
+            {% for appliance in room.appliance_set.all %}
+                <p>Type: {{ appliance.type }}</p>
+                <p>Make: {{ appliance.make }}</p>
+                <p>Model: {{ appliance.model }}</p>
+                <p>Year: {{ appliance.year }}</p>
+                {% if appliance.uses_electricity %}
+                    <p>Uses electricity</p>
+                    {% for electricity_usage in appliance.electricityusage_set.all %}
+                        <p>{{ electricity_usage }}</p>
+                    {% endfor %}
+                {% endif %}
+                {% if appliance.uses_water %}
+                    <p>Uses water</p>
+                {% endif %}
+                {% if appliance.uses_gas %}
+                    <p>Uses gas</p>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+{% else %}
+    <p>No appliances are available.</p>
+{% endif %}
