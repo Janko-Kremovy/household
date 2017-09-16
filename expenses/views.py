@@ -22,16 +22,19 @@ def update(request, dwelling_id):
 
     dwelling = Dwelling.objects.get(pk=dwelling_id)
 
-    #Get POST data and update the entire dwelling.
+    # Get POST data and update the entire dwelling.
     try:
+        # DWELLING
         dwelling.type = request.POST['type'+str(dwelling.id)]
         dwelling.address = request.POST['address'+str(dwelling.id)]
         dwelling.save()
 
+        # EACH ROOM IN DWELLING
         for room in dwelling.room_set.all():
             room.name = request.POST['room_name'+str(room.id)]
             room.save()
 
+            # EACH APPLIANCE IN ROOM
             for appliance in room.appliance_set.all():
                 appliance.type = request.POST['appliance_type'+str(appliance.id)]
                 appliance.make = request.POST['appliance_make'+str(appliance.id)]
@@ -39,6 +42,7 @@ def update(request, dwelling_id):
                 appliance.year = int(request.POST['appliance_year'+str(appliance.id)])
                 appliance.save()
 
+                # EACH ELECTRICITY USAGE FOR APPLIANCE
                 if appliance.uses_electricity:
                     for electricity_usage in appliance.electricityusage_set.all():
                         electricity_usage.watts = int(request.POST['electricity_usage_watts' + str(electricity_usage.id)])
@@ -46,6 +50,7 @@ def update(request, dwelling_id):
                         electricity_usage.occurrences_per_week = int(request.POST['electricity_usage_occurrences_per_week' + str(electricity_usage.id)])
                         electricity_usage.save()
 
+    # THIS SHOULD NOT HAPPEN
     except(KeyError, Dwelling.DoesNotExist):
         # Redisplay the update form.
         return render(request, 'expenses/update.html', {
