@@ -71,6 +71,11 @@ fieldset.electricity_usage {
     border: 3px solid DarkSeaGreen;
 }
 
+fieldset.water_usage {
+    background: Turquoise;
+    border: 3px solid Turquoise;
+}
+
 fieldset legend{
     color: black;
     border: 3px solid BurlyWood;
@@ -94,6 +99,10 @@ fieldset legend.appliance {
 
 fieldset legend.electricity_usage {
     border: 3px solid DarkSeaGreen;
+}
+
+fieldset legend.water_usage {
+    border: 3px solid Turquoise;
 }
 
 </style>
@@ -132,10 +141,20 @@ fieldset legend.electricity_usage {
             <label>times per week</label></br>
             </fieldset>
         {% endfor %}
-    </fieldset>
+
+        {% for water_usage in appliance.waterusage_set.all %}
+            <fieldset class="water_usage"><legend class="water_usage">Water Usage</legend>
+            <input type="text"  class="water_usage" name="water_usage_litres{{ water_usage.id }}" value="{{ water_usage.litres }}" />
+            <label>Litres</label>
+            <input type="text" class="water_usage" name="water_usage_occurrences_per_week{{ water_usage.id }}" value="{{ water_usage.occurrences_per_week }}" />
+            <label>times per week</label></br>
+            </fieldset>
+        {% endfor %}
+        </fieldset>
     {% endfor %}
-</fieldset>
+    </fieldset>
 {% endfor %}
+</fieldset>
 
 <input type="submit" value="Confirm" />
 </form>

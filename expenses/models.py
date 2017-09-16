@@ -47,7 +47,7 @@ class ElectricityUsage(models.Model):
 class WaterUsage(models.Model):
     appliance = models.ForeignKey(Appliance, on_delete=models.CASCADE)
     litres = models.IntegerField()
-    occurences_per_week = models.IntegerField()
+    occurrences_per_week = models.IntegerField()
 
     def __str__(self):
-        return str(self.litres) + 'L, ' + str(self.occurences_per_week) + ' times per week.'
+        return str(self.litres) + 'L, ' + str(self.occurrences_per_week) + ' times per week.'

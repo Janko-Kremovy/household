@@ -50,6 +50,17 @@ def update(request, dwelling_id):
                         electricity_usage.occurrences_per_week = int(request.POST['electricity_usage_occurrences_per_week' + str(electricity_usage.id)])
                         electricity_usage.save()
 
+                print("after electricity")
+
+                # EACH WATER USAGE FOR APPLIANCE
+                if appliance.uses_water:
+                    for water_usage in appliance.waterusage_set.all():
+                        water_usage.litres = int(request.POST['water_usage_litres' + str(water_usage.id)])
+                        water_usage.occurrences_per_week = int(request.POST['water_usage_occurrences_per_week' + str(water_usage.id)])
+                        water_usage.save()
+
+                print("after water")
+
     # THIS SHOULD NOT HAPPEN
     except(KeyError, Dwelling.DoesNotExist):
         # Redisplay the update form.

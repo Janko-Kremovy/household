@@ -16,6 +16,9 @@
                 {% endif %}
                 {% if appliance.uses_water %}
                     <p>Uses water</p>
+                    {% for water_usage in appliance.waterusage_set.all %}
+                        <p>{{ water_usage }}</p>
+                    {% endfor %}
                 {% endif %}
                 {% if appliance.uses_gas %}
                     <p>Uses gas</p>

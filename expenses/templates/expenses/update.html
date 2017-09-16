@@ -33,8 +33,18 @@
             <label>Usages per week:</label>
             <input type="text" name="electricity_usage_occurrences_per_week{{ electricity_usage.id }}" value="{{ electricity_usage.occurrences_per_week }}" /><br/>
         {% endfor %}
+
+        {% for water_usage in appliance.waterusage_set.all %}
+            <fieldset class="water_usage"><legend class="water_usage">Water Usage</legend>
+            <input type="text"  class="water_usage" name="water_usage_litres{{ water_usage.id }}" value="{{ water_usage.litres }}" />
+            <label>Litres</label>
+            <input type="text" class="water_usage" name="water_usage_occurrences_per_week{{ water_usage.id }}" value="{{ water_usage.occurrences_per_week }}" />
+            <label>times per week</label></br>
+            </fieldset>
+        {% endfor %}
+
     {% endfor %}
 {% endfor %}
 
-<input type="submit" value="update" />
+<input type="submit" value="Confirm" />
 </form>
