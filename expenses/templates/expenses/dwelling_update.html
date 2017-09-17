@@ -22,6 +22,7 @@
 
 {% for room in dwelling.room_set.all %}
     <fieldset class="room"><legend class="room">Room</legend>
+        
     <label class="dwelling">Name:</label>
     <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" /><br/>
 

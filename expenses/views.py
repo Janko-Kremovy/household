@@ -2,8 +2,31 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from expenses.models import Dwelling
+from expenses.models import Dwelling, Room
+from .forms import RoomForm
 
+
+def room_add(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = RoomForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            new_room = Room()
+            new_room.name = form.cleaned_data['name']
+            new_room.dwelling = form.cleaned_data['dwelling']
+            new_room.save()
+            return render(request, 'expenses/room_add.html', {'form': form})
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = RoomForm()
+
+    return render(request, 'expenses/room_add.html', {'form': form})
 
 def index(request):
     dwelling_list = Dwelling.objects.all
