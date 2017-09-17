@@ -43,6 +43,13 @@ class ElectricityUsage(models.Model):
     def __str__(self):
         return str(self.time_minutes) + ' minutes @ ' + str(self.watts) + 'W, ' + str(self.occurrences_per_week) + ' times per week.'
 
+    def set_watts(self, in_watts):
+        if in_watts < 0:
+            self.watts = 0
+        else:
+            self.watts = in_watts
+
+
 
 class WaterUsage(models.Model):
     appliance = models.ForeignKey(Appliance, on_delete=models.CASCADE)
