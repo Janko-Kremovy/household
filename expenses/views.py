@@ -1,9 +1,8 @@
-from django.core.handlers.base import logger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
-from expenses.models import Appliance, Dwelling, ElectricityUsage
+from expenses.models import Dwelling
 
 
 def index(request):

@@ -43,6 +43,10 @@ input[type=text].electricity_usage {
     width: fit-content;
 }
 
+input[type=text].water_usage {
+    width: fit-content;
+}
+
 fieldset{
     margin: 0px 0px 10px 0px;
     border: 3px solid BurlyWood;
