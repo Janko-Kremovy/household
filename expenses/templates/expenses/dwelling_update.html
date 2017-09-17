@@ -11,7 +11,7 @@
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-<form action="{% url 'update' dwelling.id %}" method="post">
+<form action="{% url 'dwelling_update' dwelling.id %}" method="post">
 {% csrf_token %}
 
 <fieldset><legend>Dwelling</legend>

@@ -11,13 +11,13 @@ def index(request):
     return render(request, 'expenses/index.html', context)
 
 
-def detail(request, dwelling_id):
+def dwelling_detail(request, dwelling_id):
     dwelling = Dwelling.objects.get(pk=dwelling_id)
     context = {'dwelling': dwelling}
-    return render(request, 'expenses/detail.html', context)
+    return render(request, 'expenses/dwelling_detail.html', context)
 
 
-def update(request, dwelling_id):
+def dwelling_update(request, dwelling_id):
 
     dwelling = Dwelling.objects.get(pk=dwelling_id)
 
@@ -47,9 +47,9 @@ def update(request, dwelling_id):
     # THIS SHOULD NOT HAPPEN
     except(KeyError, Dwelling.DoesNotExist):
         # Redisplay the update form.
-        return render(request, 'expenses/update.html', {
+        return render(request, 'expenses/dwelling_update.html', {
             'dwelling': dwelling,
             'error_message': "You didn't update an existing Dwelling",
         })
 
-    return HttpResponseRedirect(reverse('detail', args=(dwelling.id,)))
+    return HttpResponseRedirect(reverse('dwelling_detail', args=(dwelling.id,)))
