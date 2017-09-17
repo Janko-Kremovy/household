@@ -25,41 +25,25 @@ def update(request, dwelling_id):
     # Get POST data and update the entire dwelling.
     try:
         # DWELLING
-        dwelling.type = request.POST['type'+str(dwelling.id)]
-        dwelling.address = request.POST['address'+str(dwelling.id)]
-        dwelling.save()
+        dwelling.save_dwelling(request)
 
         # EACH ROOM IN DWELLING
         for room in dwelling.room_set.all():
-            room.name = request.POST['room_name'+str(room.id)]
-            room.save()
+            room.save_room(request)
 
             # EACH APPLIANCE IN ROOM
             for appliance in room.appliance_set.all():
-                appliance.type = request.POST['appliance_type'+str(appliance.id)]
-                appliance.make = request.POST['appliance_make'+str(appliance.id)]
-                appliance.model = request.POST['appliance_model'+str(appliance.id)]
-                appliance.year = int(request.POST['appliance_year'+str(appliance.id)])
-                appliance.save()
+                appliance.save_appliance(request)
 
                 # EACH ELECTRICITY USAGE FOR APPLIANCE
                 if appliance.uses_electricity:
                     for electricity_usage in appliance.electricityusage_set.all():
-                        electricity_usage.watts = int(request.POST['electricity_usage_watts' + str(electricity_usage.id)])
-                        electricity_usage.time_minutes = int(request.POST['electricity_usage_time_minutes' + str(electricity_usage.id)])
-                        electricity_usage.occurrences_per_week = int(request.POST['electricity_usage_occurrences_per_week' + str(electricity_usage.id)])
-                        electricity_usage.save()
-
-                print("after electricity")
+                        electricity_usage.save_electricity_usage(request)
 
                 # EACH WATER USAGE FOR APPLIANCE
                 if appliance.uses_water:
                     for water_usage in appliance.waterusage_set.all():
-                        water_usage.litres = int(request.POST['water_usage_litres' + str(water_usage.id)])
-                        water_usage.occurrences_per_week = int(request.POST['water_usage_occurrences_per_week' + str(water_usage.id)])
-                        water_usage.save()
-
-                print("after water")
+                        water_usage.save_water_usage(request)
 
     # THIS SHOULD NOT HAPPEN
     except(KeyError, Dwelling.DoesNotExist):
