@@ -12,10 +12,11 @@
 
 <fieldset><legend>Dwelling</legend>
 <label class="dwelling">Type:</label>
-<input class="dwelling" type="text" name="type{{ dwelling.id }}" value="{{ dwelling.type }}" /><br/>
+<input class="dwelling" type="text" name="type{{ dwelling.id }}" value="{{ dwelling.type }}" />
+<a href="{% url 'room_add' dwelling.id %}" class="button">Add Room</a><br/>
 <label class="dwelling">Address:</label>
 <input class="dwelling" type="text" name="address{{ dwelling.id }}" value="{{ dwelling.address }}" /><br/>
-</br><a href="{% url 'room_add' dwelling.id %}" class="button">Add Room</a>
+</br>
 
 {% for room in dwelling.room_set.all %}
     <fieldset class="room"><legend class="room">Room</legend>
@@ -29,7 +30,8 @@
 
     {% for appliance in room.appliance_set.all %}
         <fieldset class="appliance"><legend class="appliance">Appliance</legend>
-        <label class="dwelling">Type:</label><input type="text" class="dwelling" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" /></br>
+        <label class="dwelling">Type:</label><input type="text" class="dwelling" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" />
+        <a href="{% url 'appliance_delete' appliance.id %}" class="button">Delete Appliance</a></br>
         <label class="dwelling">Make:</label><input type="text" class="dwelling" name="appliance_make{{ appliance.id }}" value="{{ appliance.make }}" /></br>
         <label class="dwelling">Model:</label><input type="text" class="dwelling" name="appliance_model{{ appliance.id }}" value="{{ appliance.model }}" /></br>
         <label class="dwelling">Year:</label><input type="text" class="dwelling" name="appliance_year{{ appliance.id }}" value="{{ appliance.year }}" /></br>
