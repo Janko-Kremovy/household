@@ -20,7 +20,9 @@
 {% for room in dwelling.room_set.all %}
     <fieldset class="room"><legend class="room">Room</legend>
     <label class="dwelling">Name:</label>
-    <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" /><br/>
+    <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" />
+    <a href="{% url 'room_delete' room.id %}" class="button">Delete Room</a>
+    <br/>
 
 
     {% for appliance in room.appliance_set.all %}
@@ -52,6 +54,7 @@
         {% endfor %}
         </fieldset>
     {% endfor %}
+
     </fieldset>
 {% endfor %}
 </fieldset>

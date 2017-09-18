@@ -4,7 +4,6 @@ form {
 }
 
 .button {
-  font: bold 11px Arial;
   text-decoration: none;
   background-color: #EEEEEE;
   color: #333333;
@@ -60,7 +59,7 @@ input[type=text].water_usage {
 }
 
 fieldset{
-    margin: 0px 0px 10px 0px;
+    margin: 20px 0px 10px 0px;
     border: 3px solid BurlyWood;
     padding: 20px;
     background: BurlyWood;
@@ -73,7 +72,6 @@ fieldset{
 fieldset.room{
     background: NavajoWhite;
     border: 3px solid NavajoWhite;
-    margin: 20px 0px 10px 0px;
 }
 
 fieldset.appliance{

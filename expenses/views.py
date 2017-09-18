@@ -1,10 +1,16 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import DeleteView
 
 from expenses.models import Dwelling, Room
 from .forms import RoomForm
 
+
+class RoomDelete(DeleteView):
+    model = Room
+    success_url = reverse_lazy('dwelling_detail', args=(1,))
+    template_name = 'expenses/room_delete.html'
 
 def room_add(request, dwelling_id):
     # if this is a POST request we need to process the form data
@@ -27,6 +33,7 @@ def room_add(request, dwelling_id):
         form = RoomForm()
 
     return render(request, 'expenses/room_add.html', {'form': form, 'dwelling': Dwelling.objects.get(pk=dwelling_id)})
+
 
 def index(request):
     dwelling_list = Dwelling.objects.all
