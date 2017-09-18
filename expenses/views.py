@@ -6,7 +6,7 @@ from expenses.models import Dwelling, Room
 from .forms import RoomForm
 
 
-def room_add(request):
+def room_add(request, dwelling_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -18,15 +18,15 @@ def room_add(request):
             # redirect to a new URL:
             new_room = Room()
             new_room.name = form.cleaned_data['name']
-            new_room.dwelling = form.cleaned_data['dwelling']
+            new_room.dwelling = Dwelling.objects.get(pk=dwelling_id)
             new_room.save()
-            return render(request, 'expenses/room_add.html', {'form': form})
+            return HttpResponseRedirect(reverse('dwelling_detail', args=(dwelling_id,)))
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RoomForm()
 
-    return render(request, 'expenses/room_add.html', {'form': form})
+    return render(request, 'expenses/room_add.html', {'form': form, 'dwelling': Dwelling.objects.get(pk=dwelling_id)})
 
 def index(request):
     dwelling_list = Dwelling.objects.all

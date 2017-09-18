@@ -1,4 +1,4 @@
-<form action="{% url 'room_add' %}" method="post">
+<form action="{% url 'room_add' dwelling.id %}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit" />

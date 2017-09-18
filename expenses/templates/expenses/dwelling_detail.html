@@ -15,11 +15,13 @@
 <input class="dwelling" type="text" name="type{{ dwelling.id }}" value="{{ dwelling.type }}" /><br/>
 <label class="dwelling">Address:</label>
 <input class="dwelling" type="text" name="address{{ dwelling.id }}" value="{{ dwelling.address }}" /><br/>
+</br><a href="{% url 'room_add' dwelling.id %}" class="button">Add Room</a>
 
 {% for room in dwelling.room_set.all %}
     <fieldset class="room"><legend class="room">Room</legend>
     <label class="dwelling">Name:</label>
     <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" /><br/>
+
 
     {% for appliance in room.appliance_set.all %}
         <fieldset class="appliance"><legend class="appliance">Appliance</legend>
