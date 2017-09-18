@@ -22,6 +22,8 @@
     <label class="dwelling">Name:</label>
     <input class="dwelling" type="text" name="room_name{{ room.id }}" value="{{ room.name }}" />
     <a href="{% url 'room_delete' room.id %}" class="button">Delete Room</a>
+    <a href="{% url 'appliance_add' room.id %}" class="button">Add Appliance</a>
+
     <br/>
 
 
@@ -59,7 +61,7 @@
 {% endfor %}
 </fieldset>
 
-<input type="submit" value="Confirm" />
+<input type="submit" value="Save" />
 </form>
 </body>
 </html>

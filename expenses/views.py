@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DeleteView
 
-from expenses.models import Dwelling, Room
-from .forms import RoomForm
+from expenses.models import Dwelling, Room, Appliance
+from .forms import RoomForm, ApplianceForm
 
 
 class RoomDelete(DeleteView):
@@ -33,6 +33,35 @@ def room_add(request, dwelling_id):
         form = RoomForm()
 
     return render(request, 'expenses/room_add.html', {'form': form, 'dwelling': Dwelling.objects.get(pk=dwelling_id)})
+
+def appliance_add(request, room_id):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ApplianceForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            new_appliance = Appliance()
+            new_appliance.type = form.cleaned_data['type']
+            new_appliance.make = form.cleaned_data['make']
+            new_appliance.model = form.cleaned_data['model']
+            new_appliance.year = form.cleaned_data['year']
+            new_appliance.uses_electricity = form.cleaned_data['uses_electricity']
+            new_appliance.uses_water = form.cleaned_data['uses_water']
+            new_appliance.uses_gas = form.cleaned_data['uses_gas']
+            new_appliance.room = Room.objects.get(pk=room_id)
+            dwelling = Dwelling.objects.get(pk=Room.objects.get(pk=room_id).dwelling.id)
+            new_appliance.save()
+            return HttpResponseRedirect(reverse('dwelling_detail', args=(dwelling.id,)))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ApplianceForm()
+
+    return render(request, 'expenses/appliance_add.html', {'form': form, 'room': Room.objects.get(pk=room_id)})
 
 
 def index(request):
