@@ -31,7 +31,8 @@
     {% for appliance in room.appliance_set.all %}
         <fieldset class="appliance"><legend class="appliance">Appliance</legend>
         <label class="dwelling">Type:</label><input type="text" class="dwelling" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" />
-        <a href="{% url 'appliance_delete' appliance.id %}" class="button">Delete Appliance</a></br>
+        <a href="{% url 'appliance_delete' appliance.id %}" class="button">Delete Appliance</a>
+        <a href="{% url 'electricity_usage_add' appliance.id %}" class="button">Add Electricity Usage</a></br>
         <label class="dwelling">Make:</label><input type="text" class="dwelling" name="appliance_make{{ appliance.id }}" value="{{ appliance.make }}" /></br>
         <label class="dwelling">Model:</label><input type="text" class="dwelling" name="appliance_model{{ appliance.id }}" value="{{ appliance.model }}" /></br>
         <label class="dwelling">Year:</label><input type="text" class="dwelling" name="appliance_year{{ appliance.id }}" value="{{ appliance.year }}" /></br>
