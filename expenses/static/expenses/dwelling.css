@@ -29,7 +29,7 @@ label.dwelling + input.dwelling {
     width: 30%;
     /* large margin-right to force the next element to the new-line
        and margin-left to create a gutter between the label and input */
-    margin: 0 20% 0 4%;
+    margin: 0 10% 0 4%;
 }
 
 input[type=text] {
@@ -51,11 +51,11 @@ input[type=text].appliance {
 }
 
 input[type=text].electricity_usage {
-    width: fit-content;
+    width: 10%;
 }
 
 input[type=text].water_usage {
-    width: fit-content;
+    width: 10%;
 }
 
 fieldset{

@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DeleteView
 
-from expenses.models import Dwelling, Room, Appliance, ElectricityUsage
-from .forms import RoomForm, ApplianceForm, ElectricityUsageForm
+from expenses.models import Dwelling, Room, Appliance, ElectricityUsage, WaterUsage
+from .forms import RoomForm, ApplianceForm, ElectricityUsageForm, WaterUsageForm
 
 
 class RoomDelete(DeleteView):
@@ -47,6 +47,7 @@ def room_add(request, dwelling_id):
 
     return render(request, 'expenses/room_add.html', {'form': form, 'dwelling': Dwelling.objects.get(pk=dwelling_id)})
 
+
 def appliance_add(request, room_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -76,6 +77,7 @@ def appliance_add(request, room_id):
 
     return render(request, 'expenses/appliance_add.html', {'form': form, 'room': Room.objects.get(pk=room_id)})
 
+
 def electricity_usage_add(request, appliance_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -101,6 +103,30 @@ def electricity_usage_add(request, appliance_id):
 
     return render(request, 'expenses/electricity_usage_add.html', {'form': form, 'appliance': Appliance.objects.get(pk=appliance_id)})
 
+
+def water_usage_add(request, appliance_id):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = WaterUsageForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            new_water_usage = WaterUsage()
+            new_water_usage.litres = form.cleaned_data['litres']
+            new_water_usage.occurrences_per_week = form.cleaned_data['occurrences_per_week']
+            new_water_usage.appliance = Appliance.objects.get(pk=appliance_id)
+            dwelling = Dwelling.objects.get(pk=new_water_usage.appliance.room.dwelling.id)
+            new_water_usage.save()
+            return HttpResponseRedirect(reverse('dwelling_detail', args=(dwelling.id,)))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = WaterUsageForm()
+
+    return render(request, 'expenses/water_usage_add.html', {'form': form, 'appliance': Appliance.objects.get(pk=appliance_id)})
 
 def index(request):
     dwelling_list = Dwelling.objects.all

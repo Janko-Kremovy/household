@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from expenses.models import Room, Appliance, ElectricityUsage
+from expenses.models import Room, Appliance, ElectricityUsage, WaterUsage
 
 
 class RoomForm(ModelForm):
@@ -20,3 +20,9 @@ class ElectricityUsageForm(ModelForm):
     class Meta:
         model = ElectricityUsage
         fields = ['watts', 'time_minutes', 'occurrences_per_week']
+
+
+class WaterUsageForm(ModelForm):
+    class Meta:
+        model = WaterUsage
+        fields = ['litres', 'occurrences_per_week']

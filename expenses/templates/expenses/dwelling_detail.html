@@ -32,32 +32,34 @@
         <fieldset class="appliance"><legend class="appliance">Appliance</legend>
         <label class="dwelling">Type:</label><input type="text" class="dwelling" name="appliance_type{{ appliance.id }}" value="{{ appliance.type }}" />
         <a href="{% url 'appliance_delete' appliance.id %}" class="button">Delete Appliance</a>
-        <a href="{% url 'electricity_usage_add' appliance.id %}" class="button">Add Electricity Usage</a></br>
+        <a href="{% url 'electricity_usage_add' appliance.id %}" class="button">Add Electricity Usage</a>
+        <a href="{% url 'water_usage_add' appliance.id %}" class="button">Add Water Usage</a></br>
         <label class="dwelling">Make:</label><input type="text" class="dwelling" name="appliance_make{{ appliance.id }}" value="{{ appliance.make }}" /></br>
         <label class="dwelling">Model:</label><input type="text" class="dwelling" name="appliance_model{{ appliance.id }}" value="{{ appliance.model }}" /></br>
         <label class="dwelling">Year:</label><input type="text" class="dwelling" name="appliance_year{{ appliance.id }}" value="{{ appliance.year }}" /></br>
         </br>
 
+        <fieldset class="electricity_usage"><legend class="electricity_usage">Electricity Usage</legend>
         {% for electricity_usage in appliance.electricityusage_set.all %}
-            <fieldset class="electricity_usage"><legend class="electricity_usage">Electricity Usage</legend>
             <input type="text"  class="electricity_usage" name="electricity_usage_watts{{ electricity_usage.id }}" value="{{ electricity_usage.watts }}" />
             <label>Watts</label>
             <input type="text" class="electricity_usage" name="electricity_usage_time_minutes{{ electricity_usage.id }}" value="{{ electricity_usage.time_minutes }}" />
             <label>minutes per use, </label>
             <input type="text" class="electricity_usage" name="electricity_usage_occurrences_per_week{{ electricity_usage.id }}" value="{{ electricity_usage.occurrences_per_week }}" />
-            <label>times per week</label></br>
-            <a href="{% url 'electricity_usage_delete' electricity_usage.id %}" class="button">Delete Electricity Usage</a>
-            </fieldset>
+            <label style="margin-right: 30px;">times per week</label></t>
+            <a href="{% url 'electricity_usage_delete' electricity_usage.id %}" class="button">Delete</a></br>
         {% endfor %}
+        </fieldset>
 
+        <fieldset class="water_usage"><legend class="water_usage">Water Usage</legend>
         {% for water_usage in appliance.waterusage_set.all %}
-            <fieldset class="water_usage"><legend class="water_usage">Water Usage</legend>
             <input type="text"  class="water_usage" name="water_usage_litres{{ water_usage.id }}" value="{{ water_usage.litres }}" />
             <label>Litres</label>
             <input type="text" class="water_usage" name="water_usage_occurrences_per_week{{ water_usage.id }}" value="{{ water_usage.occurrences_per_week }}" />
             <label>times per week</label></br>
-            </fieldset>
+
         {% endfor %}
+        </fieldset>
         </fieldset>
     {% endfor %}
 
