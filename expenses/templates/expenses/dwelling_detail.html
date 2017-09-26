@@ -46,6 +46,7 @@
             <label>minutes per use, </label>
             <input type="text" class="electricity_usage" name="electricity_usage_occurrences_per_week{{ electricity_usage.id }}" value="{{ electricity_usage.occurrences_per_week }}" />
             <label>times per week</label></br>
+            <a href="{% url 'electricity_usage_delete' electricity_usage.id %}" class="button">Delete Electricity Usage</a>
             </fieldset>
         {% endfor %}
 
