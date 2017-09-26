@@ -56,8 +56,8 @@
             <input type="text"  class="water_usage" name="water_usage_litres{{ water_usage.id }}" value="{{ water_usage.litres }}" />
             <label>Litres</label>
             <input type="text" class="water_usage" name="water_usage_occurrences_per_week{{ water_usage.id }}" value="{{ water_usage.occurrences_per_week }}" />
-            <label>times per week</label></br>
-
+            <label style="margin-right: 30px;">times per week</label>
+            <a href="{% url 'water_usage_delete' water_usage.id %}" class="button">Delete</a></br>
         {% endfor %}
         </fieldset>
         </fieldset>

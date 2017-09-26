@@ -25,6 +25,12 @@ class ElectricityUsageDelete(DeleteView):
     template_name = 'expenses/electricity_usage_delete.html'
 
 
+class WaterUsageDelete(DeleteView):
+    model = WaterUsage
+    success_url = reverse_lazy('dwelling_detail', args=(1,))
+    template_name = 'expenses/water_usage_delete.html'
+
+
 def room_add(request, dwelling_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':

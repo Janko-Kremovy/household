@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^room/delete/(?P<pk>\d+)/$', views.RoomDelete.as_view(), name="room_delete"),
     url(r'^appliance/delete/(?P<pk>\d+)/$', views.ApplianceDelete.as_view(), name="appliance_delete"),
     url(r'^electricity_usage/delete/(?P<pk>\d+)/$', views.ElectricityUsageDelete.as_view(), name="electricity_usage_delete"),
+    url(r'^water_usage/delete/(?P<pk>\d+)/$', views.WaterUsageDelete.as_view(), name="water_usage_delete"),
     url(r'^(?P<dwelling_id>[0-9]+)/$', views.dwelling_detail, name='dwelling_detail'),
     url(r'^(?P<dwelling_id>[0-9]+)/update/$', views.dwelling_update, name='dwelling_update'),
 ]
